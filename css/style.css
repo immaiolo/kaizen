@@ -1,0 +1,165 @@
+/* ==========================================================
+   1. CORES  (para mudar a paleta, edite só este bloco)
+   ========================================================== */
+:root{
+  --papel:   #F1EEE8;  /* fundo off-white */
+  --papel-2: #E9E4DA;  /* faixas alternadas */
+  --tinta:   #13133F;  /* texto (azul-noite da paleta) */
+  --tinta-2: #4A4A6B;  /* texto secundário */
+  --primaria:#BB221C;  /* vermelho do projeto: links, linhas, destaques */
+  --vinho:   #741513;  /* hover e detalhes */
+  --azul:    #1754D1;  /* uso mínimo: foco do teclado */
+  --linha:   rgba(19,19,63,.18);
+
+  --serif: "Fraunces", Georgia, "Times New Roman", serif;
+  --sans:  "Libre Franklin", "Helvetica Neue", Arial, sans-serif;
+  --coluna: 68ch;      /* largura máxima do texto corrido */
+}
+
+/* ==========================================================
+   2. BASE
+   ========================================================== */
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:5.5rem}
+body{
+  margin:0;background:var(--papel);color:var(--tinta);
+  font:400 1.0625rem/1.65 var(--sans);
+  -webkit-font-smoothing:antialiased;
+  /* grão fino de papel (SVG embutido, sem arquivo externo) */
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .07  0 0 0 0 .07  0 0 0 0 .25  0 0 0 .09 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+img{max-width:100%;display:block}
+a{color:var(--primaria);text-underline-offset:.2em;text-decoration-thickness:1px;transition:color .2s}
+a:hover{color:var(--vinho)}
+:focus-visible{outline:3px solid var(--azul);outline-offset:3px;border-radius:2px}
+h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.12;margin:0;letter-spacing:-.01em}
+p{margin:0 0 1.1em;max-width:var(--coluna)}
+.pular{position:absolute;left:-999px;top:0;background:var(--tinta);color:var(--papel);padding:.6rem 1rem;z-index:20}
+.pular:focus{left:0}
+
+/* ==========================================================
+   3. CABEÇALHO
+   ========================================================== */
+.topo{
+  position:sticky;top:0;z-index:10;background:var(--papel);
+  border-bottom:1px solid var(--linha);
+}
+.topo-in{
+  max-width:72rem;margin:0 auto;padding:.7rem 1.25rem;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+}
+/* mix-blend-mode apaga o fundo branco da logo sobre o papel */
+.logo-topo img{height:52px;width:auto;mix-blend-mode:multiply}
+.menu{display:flex;gap:1.1rem;overflow-x:auto;font-size:.95rem;scrollbar-width:none}
+.menu::-webkit-scrollbar{display:none}
+.menu a{color:var(--tinta);text-decoration:none;white-space:nowrap;padding:.3rem 0;background:linear-gradient(var(--primaria),var(--primaria)) 0 100%/0 1px no-repeat;transition:background-size .25s}
+.menu a:hover{background-size:100% 1px;color:var(--tinta)}
+
+/* ==========================================================
+   4. SEÇÕES: título na margem esquerda, conteúdo à direita
+   ========================================================== */
+.secao{padding:4.5rem 1.25rem}
+.secao.alt{background-color:var(--papel-2)}
+.miolo{max-width:72rem;margin:0 auto;display:grid;gap:1.5rem}
+.secao h2{font-size:clamp(1.7rem,4vw,2.2rem);color:var(--tinta)}
+.secao h2::after{content:"";display:block;width:2.5rem;height:3px;background:var(--primaria);margin-top:.8rem}
+@media(min-width:56rem){
+  .secao{padding:7rem 2rem}
+  .miolo{grid-template-columns:15rem 1fr;gap:4rem}
+  .miolo>h2{position:sticky;top:6rem;align-self:start}
+}
+
+/* ==========================================================
+   5. HERO
+   ========================================================== */
+.hero{padding:5rem 1.25rem 4rem;border-bottom:1px solid var(--linha)}
+.hero-in{max-width:72rem;margin:0 auto}
+.hero .curso{font-size:.95rem;color:var(--tinta-2);margin:0 0 2.5rem;max-width:none}
+.hero h1{
+  font-size:clamp(4.2rem,17vw,11rem);font-weight:600;letter-spacing:-.04em;
+  line-height:.9;color:var(--primaria);margin-bottom:1.5rem;
+  font-variation-settings:"opsz" 144;
+}
+.hero .sub{font-family:var(--serif);font-size:clamp(1.3rem,3vw,1.9rem);line-height:1.3;max-width:30ch;margin-bottom:2rem}
+.hero .abertura{
+  font-family:var(--serif);font-style:italic;font-size:1.15rem;color:var(--tinta-2);
+  border-left:3px solid var(--primaria);padding-left:1.1rem;max-width:46ch;
+}
+@media(min-width:56rem){.hero{padding:7rem 2rem 6rem}}
+
+/* ==========================================================
+   6. EQUIPE: retratos levemente tortos, como fotos coladas
+   ========================================================== */
+.equipe{list-style:none;margin:0;padding:0;display:grid;gap:2.5rem}
+.pessoa{display:grid;grid-template-columns:7.5rem 1fr;gap:1.4rem;align-items:center}
+.foto{
+  background:#fbfaf6;padding:.45rem .45rem 1.2rem;margin:0;
+  box-shadow:0 1px 2px rgba(19,19,63,.18),0 6px 14px -8px rgba(19,19,63,.3);
+  transform:rotate(-1.6deg);
+}
+.pessoa:nth-child(even) .foto{transform:rotate(1.4deg)}
+.foto img,.foto .vazio{width:100%;aspect-ratio:1;object-fit:cover;background:var(--papel-2)}
+/* Enquanto não há foto, aparece a inicial. Troque pelo <img> (veja o HTML). */
+.foto .vazio{display:grid;place-items:center;font:600 2.2rem var(--serif);color:var(--vinho)}
+.pessoa h3{font-size:1.3rem}
+.pessoa .funcao{color:var(--azul);font-weight:600;font-size:.95rem;margin:.1rem 0 .5rem}
+.pessoa p{margin:0;font-size:1rem;color:var(--tinta-2)}
+@media(min-width:56rem){
+  .pessoa{grid-template-columns:9.5rem 1fr;gap:2rem}
+  .pessoa:nth-child(even){margin-left:4rem}
+}
+
+/* ==========================================================
+   7. LINHA DO TEMPO
+   ========================================================== */
+.etapas{list-style:none;margin:0;padding:0 0 0 1.6rem;border-left:1px solid var(--tinta-2);counter-reset:e}
+.etapas li{position:relative;padding-bottom:2.2rem;counter-increment:e}
+.etapas li:last-child{padding-bottom:0}
+.etapas li::before{
+  content:"";position:absolute;left:calc(-1.6rem - 6px);top:.55rem;
+  width:11px;height:11px;border-radius:50%;background:var(--papel);border:2px solid var(--primaria);
+}
+.secao.alt .etapas li::before{background:var(--papel-2)}
+.etapas li.feito::before{background:var(--azul);border-color:var(--azul)}
+.etapas h3{font-size:1.25rem;margin-bottom:.2rem}
+.etapas .quando{font-size:.9rem;color:var(--tinta-2);margin-bottom:.4rem}
+.etapas p{margin:0}
+
+/* ==========================================================
+   8. RESULTADOS E RODAPÉ
+   ========================================================== */
+.entregas{margin:0 0 1.5rem;padding-left:1.2rem;max-width:var(--coluna)}
+.entregas li{margin-bottom:.7rem;padding-left:.3rem}
+.entregas li::marker{color:var(--primaria)}
+.nota{font-family:var(--serif);font-style:italic;color:var(--tinta-2)}
+
+
+.rodape{background:var(--papel-2);color:var(--tinta);padding:4rem 1.25rem 3rem;text-align:center}
+.rodape-in{max-width:72rem;margin:0 auto;display:grid;gap:1.5rem;justify-items:center}
+/* Logo direto sobre o papel: funciona com PNG transparente (e o JPEG de fundo branco também, por causa do multiply) */
+.rodape img{height:110px;width:auto;mix-blend-mode:multiply}
+.rodape p{margin:0;font-size:.95rem;max-width:none;color:var(--tinta-2)}
+.rodape a{color:var(--primaria)}
+
+/* Faixa fina com as 4 cores do projeto */
+.faixa{height:6px;background:linear-gradient(90deg,var(--vinho) 0 25%,var(--primaria) 25% 50%,var(--azul) 50% 75%,var(--tinta) 75% 100%)}
+/* Detalhes de cor: fita adesiva nas fotos e sublinhado azul nas seções alternadas */
+.foto{position:relative}
+.foto::before{content:"";position:absolute;top:-.55rem;left:50%;width:3.2rem;height:1.1rem;transform:translateX(-50%) rotate(-3deg);background:var(--primaria);opacity:.88}
+.pessoa:nth-child(2) .foto::before{background:var(--azul)}
+.pessoa:nth-child(3) .foto::before{background:var(--vinho)}
+.pessoa:nth-child(4) .foto::before{background:var(--tinta)}
+.pessoa:nth-child(5) .foto::before{background:var(--azul)}
+.secao.alt h2::after{background:var(--azul)}
+.hero .abertura{border-left-color:var(--azul)}
+
+/* ==========================================================
+   9. ANIMAÇÃO: só o texto do hero entra suavemente ao abrir.
+      As seções aparecem com um fade curto ao rolar.
+   ========================================================== */
+.rev{opacity:0;transition:opacity .8s ease}
+.rev.on{opacity:1}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .rev{opacity:1;transition:none}
+}
